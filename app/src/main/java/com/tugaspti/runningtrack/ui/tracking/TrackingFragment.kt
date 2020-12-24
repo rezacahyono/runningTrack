@@ -49,8 +49,6 @@ class TrackingFragment : Fragment() {
 
     private val viewModel: MainViewModel by viewModels()
 
-    private var menu: Menu? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -78,11 +76,11 @@ class TrackingFragment : Fragment() {
             endRunAndSaveToDb()
         }
 
-        btnClose.setOnClickListener {
-            if (view.id == R.id.btnClose){
-                showCancelTrackingDialog()
-            }
-        }
+//        btnClose.setOnClickListener {
+//            if (view.id == R.id.btnClose){
+//                showCancelTrackingDialog()
+//            }
+//        }
         mapView.getMapAsync{maps ->
             map = maps
             addAllPolylines()
@@ -155,7 +153,7 @@ class TrackingFragment : Fragment() {
             btnFinish.visibility = View.VISIBLE
         }else if (isTracking){
             btnStart.text = getString(R.string.stop)
-            menu?.getItem(0)?.isVisible = true
+            btnClose.visibility = View.VISIBLE
             btnFinish.visibility = View.GONE
 
         }
@@ -164,7 +162,7 @@ class TrackingFragment : Fragment() {
     @SuppressLint("MissingPermission")
     private fun runStart() {
         if (isTracking) {
-            menu?.getItem(0)?.isVisible = true
+            btnClose.visibility = View.VISIBLE
             pauseTrackingService()
         } else {
             startOrResumeTrackingService()

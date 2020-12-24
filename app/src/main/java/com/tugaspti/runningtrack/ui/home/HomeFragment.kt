@@ -16,12 +16,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.tugaspti.runningtrack.R
 import com.tugaspti.runningtrack.adapter.RunAdapter
-import com.tugaspti.runningtrack.databinding.FragmentHomeBinding
 import com.tugaspti.runningtrack.ui.main.MainViewModel
 import com.tugaspti.runningtrack.utils.Constant.Companion.REQUEST_CODE_LOCATION_PERMISSION
 import com.tugaspti.runningtrack.utils.SortType
 import com.tugaspti.runningtrack.utils.TrackingUtils
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_home.*
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import javax.inject.Inject
@@ -31,8 +31,6 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     lateinit var runAdapter: RunAdapter
 
-    private lateinit var binding: FragmentHomeBinding
-
     @Inject
     lateinit var isName: String
 
@@ -41,8 +39,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,26 +47,26 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         runAdapter = RunAdapter()
         setupRecyclerView()
         requestPermissions()
-        binding.fabRun.setOnClickListener {
+        fabRun.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_trackingFragment)
         }
 
         if (isName.isNotEmpty()){
-            binding.tvName.text = isName
+            tvName.text = isName
         }
 
         when (viewModel.sortType) {
-            SortType.DATE -> binding.spFilter.setSelection(0)
-            SortType.RUNNING_TIME -> binding.spFilter.setSelection(1)
-            SortType.DISTANCE -> binding.spFilter.setSelection(2)
-            SortType.AVG_SPEED -> binding.spFilter.setSelection(3)
-            SortType.CALORIES_BURNED -> binding.spFilter.setSelection(4)
+            SortType.DATE -> spFilter.setSelection(0)
+            SortType.RUNNING_TIME -> spFilter.setSelection(1)
+            SortType.DISTANCE -> spFilter.setSelection(2)
+            SortType.AVG_SPEED -> spFilter.setSelection(3)
+            SortType.CALORIES_BURNED -> spFilter.setSelection(4)
         }
         viewModel.run.observe(viewLifecycleOwner,  { runs ->
             runAdapter.submitList(runs)
         })
 
-        binding.spFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        spFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}
 
             override fun onItemSelected(
@@ -113,7 +110,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         }
     }
 
-    private fun setupRecyclerView() = binding.rvRun.apply {
+    private fun setupRecyclerView() = rvRun.apply {
         adapter = runAdapter
         layoutManager = LinearLayoutManager(activity)
         ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(this)

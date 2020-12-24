@@ -28,7 +28,7 @@ class CustomMarkView(
         val calendar = Calendar.getInstance().apply {
             timeInMillis = run.timeStamp
         }
-        val dateFormat = SimpleDateFormat("dd.MM.yy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd-MMMM-yy", Locale.getDefault())
         tvDate.text = dateFormat.format(calendar.time)
 
         "${run.avgSpeed}km/h".also {

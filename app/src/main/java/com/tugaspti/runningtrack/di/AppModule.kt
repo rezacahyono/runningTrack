@@ -2,6 +2,7 @@ package com.tugaspti.runningtrack.di
 
 import android.app.Application
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.tugaspti.runningtrack.data.room.RunDatabase
@@ -38,7 +39,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideSharedPreferences(app: Application) =
-        app.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        app.getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
 
     @Singleton
     @Provides

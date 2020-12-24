@@ -47,7 +47,7 @@ typealias polylines = MutableList<polyline>
 class TrackingService: LifecycleService() {
 
     private val timeRunInSeconds = MutableLiveData<Long>()
-    private var isFirstRun: Boolean = true
+    private var isFirstRun = true
     private var serviceKilled = false
 
     companion object{
@@ -196,9 +196,6 @@ class TrackingService: LifecycleService() {
 
 
     private fun startForegroundService() {
-        startTimer()
-        isTracking.postValue(true)
-
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
                 as NotificationManager
 
@@ -206,11 +203,10 @@ class TrackingService: LifecycleService() {
             createNotificationChannel(notificationManager)
         }
 
-        startForeground(NOTIFICATION_ID, baseNotificationBuilder.build())
+        startForeground(NOTIFICATION_ID, curNotificationBuilder.build())
 
         startTimer()
         isTracking.postValue(true)
-
 
         timeRunInSeconds.observe(this, {
             if (!serviceKilled){

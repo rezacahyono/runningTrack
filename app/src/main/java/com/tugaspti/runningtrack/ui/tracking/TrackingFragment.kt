@@ -2,6 +2,7 @@ package com.tugaspti.runningtrack.ui.tracking
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -9,8 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.snackbar.Snackbar
 import com.tugaspti.runningtrack.R
@@ -32,8 +35,9 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.math.round
 
+
 @AndroidEntryPoint
-class TrackingFragment : Fragment() {
+class TrackingFragment : Fragment(){
 
     companion object{
         const val CANCEL_DIALOG_TAG = "cancel_dialog_tag"
@@ -50,8 +54,8 @@ class TrackingFragment : Fragment() {
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tracking, container, false)
@@ -68,6 +72,7 @@ class TrackingFragment : Fragment() {
                 stopRun()
             }
         }
+
         btnStart.setOnClickListener {
             runStart()
         }
@@ -76,18 +81,33 @@ class TrackingFragment : Fragment() {
             endRunAndSaveToDb()
         }
 
-//        btnClose.setOnClickListener {
-//            if (view.id == R.id.btnClose){
-//                showCancelTrackingDialog()
-//            }
-//        }
-        mapView.getMapAsync{maps ->
+        btnClose.setOnClickListener {
+            showCancelTrackingDialog()
+
+        }
+
+        mapView.getMapAsync{ maps ->
             map = maps
+            styleMap(maps)
             addAllPolylines()
         }
         showButtonCancel()
         subscribeToObservers()
     }
+
+
+    private fun styleMap(googleMap: GoogleMap){
+        try {
+            googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
+                    requireContext(), R.raw.style_map))
+
+        }catch (e: Resources.NotFoundException){
+            Timber.e("Can't find style. Error: $e")
+        }
+    }
+
+
+
 
     // subscribe to change livadata object
     private fun subscribeToObservers(){
@@ -95,13 +115,13 @@ class TrackingFragment : Fragment() {
             updateTracking(tracking)
         })
 
-        TrackingService.pathPoints.observe(viewLifecycleOwner, {path ->
+        TrackingService.pathPoints.observe(viewLifecycleOwner, { path ->
             pathPoints = path
             addLatestPolyline()
             moveCameraToUser()
         })
 
-        TrackingService.timeRunMillis.observe(viewLifecycleOwner, {time ->
+        TrackingService.timeRunMillis.observe(viewLifecycleOwner, { time ->
             curTimeInMillis = time
             val formateTime = TrackingUtils.getFormattedStopWatchTime(time, true)
             tvTimer.text = formateTime
@@ -112,10 +132,10 @@ class TrackingFragment : Fragment() {
     private fun moveCameraToUser(){
         if (pathPoints.isNotEmpty() && pathPoints.last().isNotEmpty()){
             map?.animateCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    pathPoints.last().last(),
-                    MAP_ZOOM
-                )
+                    CameraUpdateFactory.newLatLngZoom(
+                            pathPoints.last().last(),
+                            MAP_ZOOM
+                    )
             )
         }
     }
@@ -208,12 +228,12 @@ class TrackingFragment : Fragment() {
         val width = mapView.width
         val height = mapView.height
         map?.moveCamera(
-            CameraUpdateFactory.newLatLngBounds(
-                bounds.build(),
-                width,
-                height,
-                (height * 0.05f).toInt()
-            )
+                CameraUpdateFactory.newLatLngBounds(
+                        bounds.build(),
+                        width,
+                        height,
+                        (height * 0.05f).toInt()
+                )
         )
     }
 
@@ -232,9 +252,9 @@ class TrackingFragment : Fragment() {
                 Run(bmp, timestamp, avgSpeed, distanceInMeters, curTimeInMillis, caloriesBurned)
             viewModel.insertRun(run)
             Snackbar.make(
-                requireActivity().findViewById(R.id.mainActtivity),
-                "Run saved successfully.",
-                Snackbar.LENGTH_LONG
+                    requireActivity().findViewById(R.id.mainActtivity),
+                    "Run saved successfully.",
+                    Snackbar.LENGTH_LONG
             ).show()
             stopRun()
         }

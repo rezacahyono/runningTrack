@@ -16,6 +16,7 @@
 
         <ImageView
             android:id="@+id/imageRun"
+            android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="center"
@@ -26,17 +27,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvDate"
+        <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="12-08-2000"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/imageRun"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/imageRun" />
+            android:layout_margin="4dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rounded_bt_close"
+            android:elevation="4dp"
+            app:cardBackgroundColor="@color/colorAccent"
+            app:layout_constraintStart_toStartOf="@+id/imageRun"
+            app:layout_constraintTop_toTopOf="@+id/imageRun">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:text="12-08-2000"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageRun"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageRun" />
+        </androidx.cardview.widget.CardView>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTotalDistance"

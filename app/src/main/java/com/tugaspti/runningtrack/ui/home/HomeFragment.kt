@@ -1,6 +1,7 @@
 package com.tugaspti.runningtrack.ui.home
 
 import android.Manifest
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.tugaspti.runningtrack.R
 import com.tugaspti.runningtrack.adapter.RunAdapter
 import com.tugaspti.runningtrack.ui.main.MainViewModel
+import com.tugaspti.runningtrack.utils.Constant
 import com.tugaspti.runningtrack.utils.Constant.Companion.REQUEST_CODE_LOCATION_PERMISSION
 import com.tugaspti.runningtrack.utils.SortType
 import com.tugaspti.runningtrack.utils.TrackingUtils
@@ -32,7 +34,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     lateinit var runAdapter: RunAdapter
 
     @Inject
-    lateinit var isName: String
+    lateinit var sharedPreferences: SharedPreferences
 
     private val viewModel: MainViewModel by viewModels()
     override fun onCreateView(
@@ -45,42 +47,48 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         runAdapter = RunAdapter()
-        setupRecyclerView()
-        requestPermissions()
-        fabRun.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_trackingFragment)
-        }
+    }
 
-        if (isName.isNotEmpty()){
-            tvName.text = isName
-        }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (activity != null){
+            setupRecyclerView()
+            requestPermissions()
+            fabRun.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_trackingFragment)
+            }
+            val name = sharedPreferences.getString(Constant.KEY_NAME, "")
+            if (name != null){
+                tvName.text = name
+            }
 
-        when (viewModel.sortType) {
-            SortType.DATE -> spFilter.setSelection(0)
-            SortType.RUNNING_TIME -> spFilter.setSelection(1)
-            SortType.DISTANCE -> spFilter.setSelection(2)
-            SortType.AVG_SPEED -> spFilter.setSelection(3)
-            SortType.CALORIES_BURNED -> spFilter.setSelection(4)
-        }
-        viewModel.run.observe(viewLifecycleOwner,  { runs ->
-            runAdapter.submitList(runs)
-        })
+            when (viewModel.sortType) {
+                SortType.DATE -> spFilter.setSelection(0)
+                SortType.RUNNING_TIME -> spFilter.setSelection(1)
+                SortType.DISTANCE -> spFilter.setSelection(2)
+                SortType.AVG_SPEED -> spFilter.setSelection(3)
+                SortType.CALORIES_BURNED -> spFilter.setSelection(4)
+            }
+            viewModel.run.observe(viewLifecycleOwner,  { runs ->
+                runAdapter.submitList(runs)
+            })
 
-        spFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(adapterView: AdapterView<*>?) {}
+            spFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(adapterView: AdapterView<*>?) {}
 
-            override fun onItemSelected(
-                adapterView: AdapterView<*>?,
-                view: View?,
-                pos: Int,
-                id: Long
-            ) {
-                when (pos) {
-                    0 -> viewModel.sortRuns(SortType.DATE)
-                    1 -> viewModel.sortRuns(SortType.RUNNING_TIME)
-                    2 -> viewModel.sortRuns(SortType.DISTANCE)
-                    3 -> viewModel.sortRuns(SortType.AVG_SPEED)
-                    4 -> viewModel.sortRuns(SortType.CALORIES_BURNED)
+                override fun onItemSelected(
+                        adapterView: AdapterView<*>?,
+                        view: View?,
+                        pos: Int,
+                        id: Long
+                ) {
+                    when (pos) {
+                        0 -> viewModel.sortRuns(SortType.DATE)
+                        1 -> viewModel.sortRuns(SortType.RUNNING_TIME)
+                        2 -> viewModel.sortRuns(SortType.DISTANCE)
+                        3 -> viewModel.sortRuns(SortType.AVG_SPEED)
+                        4 -> viewModel.sortRuns(SortType.CALORIES_BURNED)
+                    }
                 }
             }
         }

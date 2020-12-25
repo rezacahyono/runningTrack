@@ -11,7 +11,6 @@ import com.tugaspti.runningtrack.R
 import com.tugaspti.runningtrack.utils.Constant.Companion.KEY_NAME
 import com.tugaspti.runningtrack.utils.Constant.Companion.KEY_WEIGHT
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_setting.*
 import javax.inject.Inject
 
@@ -29,18 +28,21 @@ class SettingFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_setting, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        loadFieldsFromSharedPref()
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (activity != null){
+            loadFieldsFromSharedPref()
 
 
 
-        btnApplyChange.setOnClickListener {
-            val success = applyChangesToSharedPref()
-            if(success) {
-                Snackbar.make(requireView(), "Saved changes", Snackbar.LENGTH_SHORT).show()
-            } else {
-                Snackbar.make(requireView(), "Please fill out all the fields", Snackbar.LENGTH_SHORT).show()
+            btnApplyChange.setOnClickListener {
+                val success = applyChangesToSharedPref()
+                if(success) {
+                    Snackbar.make(requireView(), "Saved changes", Snackbar.LENGTH_SHORT).show()
+                } else {
+                    Snackbar.make(requireView(), "Please fill out all the fields", Snackbar.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -62,7 +64,6 @@ class SettingFragment : Fragment() {
             .putString(KEY_NAME, nameText)
             .putFloat(KEY_WEIGHT, weightText.toFloat())
             .apply()
-        parentFragment?.tvName?.text = nameText
         return true
     }
 

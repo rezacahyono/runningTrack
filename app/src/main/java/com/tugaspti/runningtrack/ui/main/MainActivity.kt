@@ -10,7 +10,6 @@ import com.tugaspti.runningtrack.R
 import com.tugaspti.runningtrack.utils.Constant.Companion.ACTION_SHOW_TRACKING_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

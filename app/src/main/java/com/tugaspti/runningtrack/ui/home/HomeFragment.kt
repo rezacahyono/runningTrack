@@ -2,6 +2,7 @@ package com.tugaspti.runningtrack.ui.home
 
 import android.Manifest
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,16 +10,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.smarteist.autoimageslider.IndicatorAnimations
+import com.smarteist.autoimageslider.SliderAnimations
 import com.tugaspti.runningtrack.R
 import com.tugaspti.runningtrack.adapter.RunAdapter
+import com.tugaspti.runningtrack.adapter.SlideAdapter
 import com.tugaspti.runningtrack.ui.main.MainViewModel
 import com.tugaspti.runningtrack.utils.Constant
+import com.tugaspti.runningtrack.utils.Constant.Companion.KEY_MODE_THEME
 import com.tugaspti.runningtrack.utils.Constant.Companion.REQUEST_CODE_LOCATION_PERMISSION
 import com.tugaspti.runningtrack.utils.SortType
 import com.tugaspti.runningtrack.utils.TrackingUtils
@@ -32,9 +39,10 @@ import javax.inject.Inject
 class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     lateinit var runAdapter: RunAdapter
+    lateinit var slideAdapter: SlideAdapter
 
     @Inject
-    lateinit var sharedPreferences: SharedPreferences
+    lateinit var sharedPref: SharedPreferences
 
     private val viewModel: MainViewModel by viewModels()
     override fun onCreateView(
@@ -47,20 +55,32 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         runAdapter = RunAdapter()
+        slideAdapter = SlideAdapter()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null){
             setupRecyclerView()
+            setupSlideImage()
             requestPermissions()
             fabRun.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_trackingFragment)
             }
-            val name = sharedPreferences.getString(Constant.KEY_NAME, "")
+            val name = sharedPref.getString(Constant.KEY_NAME, "")
             if (name != null){
                 tvName.text = name
             }
+            val theme = sharedPref.getBoolean(KEY_MODE_THEME, false)
+            if (theme){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+
+            viewModel.imageRun().observe(viewLifecycleOwner, {image ->
+                slideAdapter.setAdapter(image)
+            })
 
             when (viewModel.sortType) {
                 SortType.DATE -> spFilter.setSelection(0)
@@ -122,6 +142,16 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         adapter = runAdapter
         layoutManager = LinearLayoutManager(activity)
         ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(this)
+    }
+
+    private fun setupSlideImage(){
+        slideView.setSliderAdapter(slideAdapter)
+        slideView.setIndicatorAnimation(IndicatorAnimations.DROP)
+        slideView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
+        slideView.indicatorSelectedColor = ContextCompat.getColor(requireContext(), R.color.accent)
+        slideView.indicatorUnselectedColor = Color.WHITE
+        slideView.startAutoCycle()
+        slideView.setOnIndicatorClickListener{position -> slideView.currentPagePosition = position}
     }
 
     private fun requestPermissions() {

@@ -1,7 +1,11 @@
 package com.tugaspti.runningtrack.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.tugaspti.runningtrack.data.entity.ImageRun
 import com.tugaspti.runningtrack.data.entity.Run
 import com.tugaspti.runningtrack.data.room.RunDao
+import com.tugaspti.runningtrack.utils.DataDummy
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(val runDao: RunDao) {
@@ -26,4 +30,15 @@ class MainRepository @Inject constructor(val runDao: RunDao) {
     fun totalCalories() = runDao.getTotalCaloriesBurned()
 
     fun totalTimeMillis() = runDao.getTotalTimeMillis()
+
+    fun getimageRun(): LiveData<List<ImageRun>>{
+        val data = MutableLiveData<List<ImageRun>>()
+        try {
+            data.value = DataDummy.loadImage()
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+        return data
+    }
+
 }

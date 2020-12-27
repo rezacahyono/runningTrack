@@ -53,7 +53,7 @@ class RunAdapter : RecyclerView.Adapter<RunAdapter.RunViewHolder>() {
             val calendar = Calendar.getInstance().apply {
                 timeInMillis = run.timeStamp
             }
-            val dateFormat = SimpleDateFormat("dd-MMMM-yyyy", Locale.getDefault())
+            val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.getDefault())
             tvDate.text = dateFormat.format(calendar.time)
 
             "${run.avgSpeed}km/h".also {

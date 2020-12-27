@@ -26,8 +26,8 @@ class Constant {
         const val FASTEST_LOCATION_INTERVAL = 2000L
 
         // map
-        val POLYLINE_COLOR = Color.rgb(128,203,196)
-        const val POLYLINE_WIDTH = 10f
+        val POLYLINE_COLOR = Color.rgb(0,176,166)
+        const val POLYLINE_WIDTH = 17f
         const val MAP_ZOOM = 15f
 
         // map view key
@@ -49,6 +49,7 @@ class Constant {
         const val KEY_NAME = "KEY_NAME"
         const val KEY_WEIGHT = "KEY_WEIGHT"
         const val KEY_FIRST_TIME_TOGGLE = "KEY_FIRST_TIME_TOGGLE"
+        const val KEY_MODE_THEME = "KEY_MODE_THEME"
     }
 
 }

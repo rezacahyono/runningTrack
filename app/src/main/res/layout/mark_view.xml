@@ -5,22 +5,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="8dp"
     android:elevation="8dp"
-    app:cardBackgroundColor="@color/colorAccent"
+    app:cardBackgroundColor="?attr/colorPrimaryVariant"
     android:layout_margin="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="5dp"
-        android:background="@color/colorAccent">
+        android:layout_margin="8dp"
+        android:background="@color/accent">
 
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="DATE"
-            android:textSize="14sp"
+            android:textSize="12sp"
+            android:textColor="?attr/colorSecondaryVariant"
             android:gravity="center"/>
 
         <TextView
@@ -28,7 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="DURATION"
-            android:textSize="14sp"
+            android:textColor="?attr/colorSecondaryVariant"
+            android:textSize="12sp"
             android:gravity="center"/>
 
         <TextView
@@ -36,7 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="AVG SPEED"
-            android:textSize="14sp"
+            android:textColor="?attr/colorSecondaryVariant"
+            android:textSize="12sp"
             android:gravity="center"/>
 
         <TextView
@@ -44,7 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="DISTANCE"
-            android:textSize="14sp"
+            android:textColor="?attr/colorSecondaryVariant"
+            android:textSize="12sp"
             android:gravity="center"/>
 
         <TextView
@@ -52,7 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="CALORIES BURNED"
-            android:textSize="14sp"
+            android:textColor="?attr/colorSecondaryVariant"
+            android:textSize="12sp"
             android:gravity="center"/>
 
     </LinearLayout>

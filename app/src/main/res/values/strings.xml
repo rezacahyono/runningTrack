@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">RunningTrack</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">home</string>
     <string name="statistic">Statistic</string>
     <string name="setting">Setting</string>
@@ -12,13 +11,13 @@
     <string name="your_name">your name</string>
     <string name="your_weight">your weight</string>
     <string name="apply_change">Apply change</string>
-    <string name="total_time">total time</string>
-    <string name="total_distance">total distance</string>
+    <string name="total_time">Time</string>
+    <string name="total_distance">Distance</string>
     <string name="_0km">0km</string>
     <string name="_00_00_00">00:00:00</string>
-    <string name="total_calories_burned">total calories burned</string>
+    <string name="total_calories_burned">Calories</string>
     <string name="_0kcal">0kcal</string>
-    <string name="avarage_speed">avarage speed</string>
+    <string name="avarage_speed">Speed</string>
     <string name="_0km_h">0km/h</string>
     <string name="finish">finish</string>
     <string name="_00_00_00_00">00:00:00:00</string>
@@ -36,4 +35,7 @@
     </string-array>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBLrx_6DeTKJ2PwpEbOtR3o8RpavHABrBU</string>
+    <string name="skuy">Skuy!</string>
+    <string name="sort_by">Sort by:</string>
+    <string name="aktivitas_terakhir">Aktivitas Terakhir :</string>
 </resources>

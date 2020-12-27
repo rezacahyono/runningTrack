@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.snackbar.Snackbar
 import com.tugaspti.runningtrack.R
+import com.tugaspti.runningtrack.utils.Constant.Companion.KEY_MODE_THEME
 import com.tugaspti.runningtrack.utils.Constant.Companion.KEY_NAME
 import com.tugaspti.runningtrack.utils.Constant.Companion.KEY_WEIGHT
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,9 +35,6 @@ class SettingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         if (activity != null){
             loadFieldsFromSharedPref()
-
-
-
             btnApplyChange.setOnClickListener {
                 val success = applyChangesToSharedPref()
                 if(success) {
@@ -44,6 +43,21 @@ class SettingFragment : Fragment() {
                     Snackbar.make(requireView(), "Please fill out all the fields", Snackbar.LENGTH_SHORT).show()
                 }
             }
+
+            loadStateMode()
+            swdarkMode.setOnCheckedChangeListener{ _, isChecked ->
+                if (isChecked){
+                    setStateMode(isChecked)
+                    Snackbar.make(requireView(), "Dark Mode Active", Snackbar.LENGTH_SHORT).show()
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }else{
+                    setStateMode(isChecked)
+                    Snackbar.make(requireView(), "Dark Mode NonActive", Snackbar.LENGTH_SHORT).show()
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
+            }
+
+
         }
     }
 
@@ -65,6 +79,22 @@ class SettingFragment : Fragment() {
             .putFloat(KEY_WEIGHT, weightText.toFloat())
             .apply()
         return true
+    }
+
+    private fun loadStateMode(){
+        val checked = sharedPreferences.getBoolean(KEY_MODE_THEME,false)
+        swdarkMode.isChecked = checked
+        if (checked){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+    private fun setStateMode(state: Boolean){
+        sharedPreferences.edit()
+                .putBoolean(KEY_MODE_THEME, state)
+                .apply()
     }
 
 

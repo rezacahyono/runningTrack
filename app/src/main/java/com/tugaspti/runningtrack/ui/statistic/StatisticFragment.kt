@@ -1,11 +1,13 @@
 package com.tugaspti.runningtrack.ui.statistic
 
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.github.mikephil.charting.components.XAxis
@@ -13,17 +15,23 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.tugaspti.runningtrack.R
+import com.tugaspti.runningtrack.utils.Constant.Companion.KEY_MODE_THEME
 import com.tugaspti.runningtrack.utils.Constant.Companion.POLYLINE_COLOR
 import com.tugaspti.runningtrack.utils.CustomMarkView
 import com.tugaspti.runningtrack.utils.TrackingUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_statistic.*
+import javax.inject.Inject
 import kotlin.math.round
 
 @AndroidEntryPoint
 class StatisticFragment : Fragment() {
 
     private val viewModel: StatisticViewModel by viewModels()
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,28 +41,50 @@ class StatisticFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_statistic, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupLineChart()
-        subscribeToObservers()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if(activity != null){
+            subscribeToObservers()
+
+            val theme = sharedPref.getBoolean(KEY_MODE_THEME, false)
+            if (theme){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            setupLineChart(theme)
+
+        }
     }
 
-    private fun setupLineChart() {
+    private fun setupLineChart(state: Boolean) {
         barChart.xAxis.apply {
             position = XAxis.XAxisPosition.BOTTOM
             setDrawLabels(false)
             axisLineColor = POLYLINE_COLOR
-            textColor = Color.BLACK
+            textColor = if (state){
+                Color.WHITE
+            }else{
+                Color.BLACK
+            }
             setDrawGridLines(false)
         }
         barChart.axisLeft.apply {
             axisLineColor = POLYLINE_COLOR
-            textColor = Color.BLACK
+            textColor = if (state){
+                Color.WHITE
+            }else{
+                Color.BLACK
+            }
             setDrawGridLines(false)
         }
         barChart.axisRight.apply {
             axisLineColor = POLYLINE_COLOR
-            textColor = Color.BLACK
+            textColor = if (state){
+                Color.WHITE
+            }else{
+                Color.BLACK
+            }
             setDrawGridLines(false)
         }
         barChart.apply {

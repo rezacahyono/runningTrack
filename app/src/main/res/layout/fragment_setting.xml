@@ -1,113 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="?attr/colorPrimary">
 
-    <RelativeLayout
-        android:layout_marginTop="50dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_dark_mode_24"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="16dp"
-            android:layout_centerInParent="true"
-            app:tint="@color/colorAccent"
-            android:contentDescription="@string/dark_mode" />
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="47dp"
-            android:text="@string/dark_mode"
-            android:textColor="@color/black"
-            tools:ignore="RelativeOverlap" />
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Settings"
+               android:textSize="18sp"
+               android:textStyle="bold"
+               android:textColor="?attr/colorSecondary"/>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <Switch
-            android:id="@+id/swdarkMode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_alignParentEnd="true"
-            android:checked="false"
-            android:thumbTint="@color/colorAccent"
-            android:layout_marginEnd="20dp"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/dark_mode"
+        android:src="@drawable/ic_baseline_dark_mode_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:tint="@color/accent" />
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="8dp"
+        android:text="@string/dark_mode"
+        android:textColor="?attr/colorSecondary"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        tools:ignore="RelativeOverlap" />
+
+    <Switch
+        android:id="@+id/swdarkMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="16dp"
+        android:checked="false"
+        android:thumbTint="?attr/colorPrimaryVariant"
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/textView4"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <View
+        android:id="@+id/view2"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center">
+        android:layout_height="0.5dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/colorSecondary"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:layout_editor_absoluteX="16dp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_globe_2_outline"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="16dp"
-            android:layout_centerInParent="true"
-            app:tint="@color/colorAccent"
-            android:contentDescription="@string/dark_mode" />
+<!--    -->
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/dark_mode"
+        android:src="@drawable/ic_globe_2_outline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2"
+        app:tint="@color/accent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="47dp"
-            android:text="@string/change_language"
-            android:textColor="@color/black"
-            tools:ignore="RelativeOverlap" />
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="8dp"
+        android:text="@string/change_language"
+        android:textColor="?attr/colorSecondary"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        tools:ignore="RelativeOverlap" />
 
-        <Switch
-            android:id="@+id/swLocalization"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_alignParentEnd="true"
-            android:checked="false"
-            android:thumbTint="@color/colorAccent"
-            android:layout_marginEnd="20dp"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-    </RelativeLayout>
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:checked="false"
+        android:thumbTint="?attr/colorPrimaryVariant"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="@+id/textView6"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_width="216dp"
+        android:layout_height="16dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginVertical="30dp"
-        android:textColor="@android:color/darker_gray"
+        android:layout_marginBottom="16dp"
         android:text="@string/please_enter_your_name_and_weght"
-        android:layout_gravity="center_horizontal"/>
+        android:textColor="?attr/colorSecondaryVariant"
+        app:layout_constraintBottom_toTopOf="@+id/tilName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="0.39">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
+            android:textColorHighlight="?attr/colorSecondary"
             android:ems="16"
-            android:textColorHint="@android:color/darker_gray"
+            android:textColorLink="?attr/colorSecondary"
             android:hint="@string/your_name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColorHint="?attr/colorSecondaryVariant" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,18 +164,24 @@
         android:id="@+id/tilWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="@+id/tilName"
+        app:layout_constraintStart_toStartOf="@+id/tilName"
+        app:layout_constraintTop_toBottomOf="@+id/tilName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="@string/your_weight"
-            android:textColorHint="@android:color/darker_gray"
             android:ems="16"
-            android:inputType="numberDecimal" />
+            android:hint="@string/your_weight"
+            android:textColorHighlight="?attr/colorSecondary"
+            android:textColorLink="?attr/colorSecondary"
+            android:inputType="numberDecimal"
+            android:textColorHint="?attr/colorOnSecondary" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,13 +189,16 @@
         android:id="@+id/btnApplyChange"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn"
-        android:backgroundTint="@color/colorAccent"
-        android:text="@string/apply_change"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_btn"
+        android:backgroundTint="?attr/colorPrimaryVariant"
         android:elevation="10dp"
-        android:layout_marginTop="20dp"/>
+        android:text="@string/apply_change"
+        android:textColor="?attr/colorOnSecondary"
+        app:layout_constraintEnd_toEndOf="@+id/tilWeight"
+        app:layout_constraintStart_toStartOf="@+id/tilWeight"
+        app:layout_constraintTop_toBottomOf="@+id/tilWeight" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

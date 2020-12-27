@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.tugaspti.runningtrack.R
+import com.tugaspti.runningtrack.utils.Constant
 import com.tugaspti.runningtrack.utils.Constant.Companion.KEY_FIRST_TIME_TOGGLE
 import com.tugaspti.runningtrack.utils.Constant.Companion.KEY_NAME
 import com.tugaspti.runningtrack.utils.Constant.Companion.KEY_WEIGHT
@@ -33,6 +35,11 @@ class SetupFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_setup, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null){
@@ -45,6 +52,13 @@ class SetupFragment : Fragment() {
                         savedInstanceState,
                         navOptions
                 )
+            }
+
+            val theme = sharedPref.getBoolean(Constant.KEY_MODE_THEME, false)
+            if (theme){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
 
             btnKuy.setOnClickListener {

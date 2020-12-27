@@ -2,6 +2,7 @@ package com.tugaspti.runningtrack.ui.tracking
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.*
@@ -10,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -23,6 +23,7 @@ import com.tugaspti.runningtrack.ui.main.MainViewModel
 import com.tugaspti.runningtrack.utils.Constant.Companion.ACTION_PAUSE_SERVICE
 import com.tugaspti.runningtrack.utils.Constant.Companion.ACTION_START_OR_RESUME_SERVICE
 import com.tugaspti.runningtrack.utils.Constant.Companion.ACTION_STOP_SERVICE
+import com.tugaspti.runningtrack.utils.Constant.Companion.KEY_MODE_THEME
 import com.tugaspti.runningtrack.utils.Constant.Companion.MAP_VIEW_BUNDLE_KEY
 import com.tugaspti.runningtrack.utils.Constant.Companion.MAP_ZOOM
 import com.tugaspti.runningtrack.utils.Constant.Companion.POLYLINE_COLOR
@@ -44,6 +45,9 @@ class TrackingFragment : Fragment(){
     }
     @set:Inject
     var weight: Float = 80f
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
     private var map: GoogleMap? = null
 
@@ -98,8 +102,15 @@ class TrackingFragment : Fragment(){
 
     private fun styleMap(googleMap: GoogleMap){
         try {
-            googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
-                    requireContext(), R.raw.style_map))
+            val checked = sharedPref.getBoolean(KEY_MODE_THEME,false)
+            if (checked){
+                googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
+                        requireContext(), R.raw.style_maps_dark))
+            }else{
+                googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
+                        requireContext(), R.raw.style_maps_light))
+
+            }
 
         }catch (e: Resources.NotFoundException){
             Timber.e("Can't find style. Error: $e")

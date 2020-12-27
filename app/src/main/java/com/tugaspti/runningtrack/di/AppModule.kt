@@ -56,4 +56,8 @@ object AppModule {
     fun provideFirstTimeToggle(sharedPreferences: SharedPreferences) =
         sharedPreferences.getBoolean(KEY_FIRST_TIME_TOGGLE, true)
 
+//    @Singleton
+//    @Provides
+//    fun provideMode(sharedPreferences: SharedPreferences) =
+//            sharedPreferences.getBoolean(KEY_MODE_THEME, false)
 }

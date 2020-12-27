@@ -1,9 +1,11 @@
 package com.tugaspti.runningtrack.ui.main
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tugaspti.runningtrack.data.entity.ImageRun
 import com.tugaspti.runningtrack.data.entity.Run
 import com.tugaspti.runningtrack.repository.MainRepository
 import com.tugaspti.runningtrack.utils.SortType
@@ -22,6 +24,8 @@ class MainViewModel @ViewModelInject constructor(val mainRepository: MainReposit
     private val runSortByAvgSpeed = mainRepository.getAllRunSortByAvgSpeed()
 
     private val runSortByCalories = mainRepository.getAllRunSortByCalories()
+
+    fun imageRun(): LiveData<List<ImageRun>> = mainRepository.getimageRun()
 
     val run = MediatorLiveData<List<Run>>()
 

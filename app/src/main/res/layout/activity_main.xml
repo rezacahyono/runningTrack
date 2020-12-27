@@ -5,7 +5,6 @@
     android:id="@+id/mainActtivity"
     android:layout_height="match_parent">
     <FrameLayout
-        android:id="@+id/flContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
@@ -26,10 +25,10 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_bottom_nav"
+        android:background="?attr/colorOnPrimary"
         android:elevation="10dp"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
+        app:itemIconTint="?attr/colorPrimaryVariant"
+        app:itemTextColor="?attr/colorPrimaryVariant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -25,13 +25,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bottomNavigationView.setupWithNavController(navHostFragment.findNavController())
+        bottomNavigationView.setupWithNavController(navContainer.findNavController())
         bottomNavigationView.setOnNavigationItemReselectedListener {}
 
         navigateTrackingFragmentNeeded(intent)
 
 
-        navHostFragment.findNavController()
+        navContainer.findNavController()
             .addOnDestinationChangedListener { _, destination, _ ->
                 when(destination.id){
                     R.id.setupFragment, R.id.trackingFragment -> bottomNavigationView.visibility = View.GONE
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateTrackingFragmentNeeded(intent: Intent?){
         if (intent?.action == ACTION_SHOW_TRACKING_FRAGMENT){
-            navHostFragment.findNavController().navigate(R.id.action_global_trackingFragment)
+            navContainer.findNavController().navigate(R.id.action_global_trackingFragment)
         }
     }
 }

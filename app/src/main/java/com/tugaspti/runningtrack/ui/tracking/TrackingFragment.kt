@@ -1,20 +1,22 @@
 package com.tugaspti.runningtrack.ui.tracking
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.os.Bundle
 import android.view.*
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.*
 import com.google.android.material.snackbar.Snackbar
 import com.tugaspti.runningtrack.R
 import com.tugaspti.runningtrack.data.entity.Run
@@ -58,8 +60,8 @@ class TrackingFragment : Fragment(){
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tracking, container, false)
@@ -102,13 +104,19 @@ class TrackingFragment : Fragment(){
 
     private fun styleMap(googleMap: GoogleMap){
         try {
-            val checked = sharedPref.getBoolean(KEY_MODE_THEME,false)
+            val checked = sharedPref.getBoolean(KEY_MODE_THEME, false)
             if (checked){
-                googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
-                        requireContext(), R.raw.style_maps_dark))
+                googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                        requireContext(), R.raw.style_maps_dark
+                    )
+                )
             }else{
-                googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
-                        requireContext(), R.raw.style_maps_light))
+                googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                        requireContext(), R.raw.style_maps_light
+                    )
+                )
 
             }
 
@@ -116,9 +124,6 @@ class TrackingFragment : Fragment(){
             Timber.e("Can't find style. Error: $e")
         }
     }
-
-
-
 
     // subscribe to change livadata object
     private fun subscribeToObservers(){
@@ -143,28 +148,29 @@ class TrackingFragment : Fragment(){
     private fun moveCameraToUser(){
         if (pathPoints.isNotEmpty() && pathPoints.last().isNotEmpty()){
             map?.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                            pathPoints.last().last(),
-                            MAP_ZOOM
-                    )
+                CameraUpdateFactory.newLatLngZoom(
+                    pathPoints.last().last(),
+                    MAP_ZOOM
+                )
             )
         }
     }
 
     // add all polyline to path list display screen rotate
     private fun addAllPolylines(){
+        val polylineOptions = PolylineOptions()
+            .color(POLYLINE_COLOR)
+            .width(POLYLINE_WIDTH)
         for (polyline in pathPoints){
-            val polylineOptions = PolylineOptions()
-                .color(POLYLINE_COLOR)
-                .width(POLYLINE_WIDTH)
-                .addAll(polyline)
-            map?.addPolyline(polylineOptions)
+            polylineOptions.addAll(polyline)
         }
+        map?.addPolyline(polylineOptions)
     }
 
     // Polyline draw
     private fun addLatestPolyline(){
         if (pathPoints.isNotEmpty() && pathPoints.last().size > 1){
+            val firstLatLng = pathPoints.last()[0]
             val preLastLatlng = pathPoints.last()[pathPoints.last().size - 2]
             val lastLatlng = pathPoints.last().last()
             val polylineOptions = PolylineOptions()
@@ -173,6 +179,11 @@ class TrackingFragment : Fragment(){
                 .add(preLastLatlng)
                 .add(lastLatlng)
             map?.addPolyline(polylineOptions)
+            map?.addMarker(
+                MarkerOptions()
+                    .position(firstLatLng)
+                    .icon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_bxs_flag))
+            )
         }
     }
 
@@ -239,12 +250,17 @@ class TrackingFragment : Fragment(){
         val width = mapView.width
         val height = mapView.height
         map?.moveCamera(
-                CameraUpdateFactory.newLatLngBounds(
-                        bounds.build(),
-                        width,
-                        height,
-                        (height * 0.05f).toInt()
-                )
+            CameraUpdateFactory.newLatLngBounds(
+                bounds.build(),
+                width,
+                height,
+                (height * 0.05f).toInt()
+            )
+        )
+        map?.addMarker(
+            MarkerOptions()
+                .position(pathPoints.last().last())
+                .icon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_bxs_flag_checkered))
         )
     }
 
@@ -263,9 +279,9 @@ class TrackingFragment : Fragment(){
                 Run(bmp, timestamp, avgSpeed, distanceInMeters, curTimeInMillis, caloriesBurned)
             viewModel.insertRun(run)
             Snackbar.make(
-                    requireActivity().findViewById(R.id.mainActtivity),
-                    "Run saved successfully.",
-                    Snackbar.LENGTH_LONG
+                requireActivity().findViewById(R.id.mainActtivity),
+                "Run saved successfully.",
+                Snackbar.LENGTH_LONG
             ).show()
             stopRun()
         }
@@ -284,6 +300,29 @@ class TrackingFragment : Fragment(){
         }else{
             btnClose.visibility = View.GONE
         }
+    }
+
+
+    // draw icon marker
+    private fun bitmapDescriptorFromVector(
+        context: Context,
+        @DrawableRes vectorResId: Int
+    ): BitmapDescriptor? {
+        val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
+        vectorDrawable!!.setBounds(
+            0,
+            0,
+            vectorDrawable.intrinsicWidth,
+            vectorDrawable.intrinsicHeight
+        )
+        val bitmap = Bitmap.createBitmap(
+            vectorDrawable.intrinsicWidth,
+            vectorDrawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        vectorDrawable.draw(canvas)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
     // hows a dialog to cancel the current run.

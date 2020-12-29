@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/setupFragment">
+    app:startDestination="@id/setupFragment"
+    android:id="@+id/navGraph">
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.tugaspti.runningtrack.ui.home.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_trackingFragment"
-            app:destination="@id/trackingFragment" />
+            app:destination="@id/trackingFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"/>
     </fragment>
 
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.tugaspti.runningtrack.ui.setting.SettingFragment"
-        android:label="SettingsFragment" />
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"/>
+    </fragment>
 
     <fragment
         android:id="@+id/statisticsFragment"
         android:name="com.tugaspti.runningtrack.ui.statistic.StatisticFragment"
-        android:label="StatisticsFragment" />
+        android:label="StatisticsFragment" >
+        <action
+            android:id="@+id/action_statisticsFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"/>
+    </fragment>
 
     <fragment
         android:id="@+id/setupFragment"
@@ -27,7 +39,8 @@
         android:label="SetupFragment" >
         <action
             android:id="@+id/action_setupFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"/>
     </fragment>
 
     <fragment
@@ -36,7 +49,8 @@
         android:label="TrackingFragment" >
         <action
             android:id="@+id/action_trackingFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"/>
     </fragment>
 
     <action android:id="@+id/action_global_trackingFragment"

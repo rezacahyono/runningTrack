@@ -56,6 +56,7 @@
         android:background="@drawable/bg_btn"
         android:backgroundTint="@color/accent"
         android:text="@string/start"
+        android:elevation="3dp"
         android:textColor="?attr/colorOnSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnFinish"

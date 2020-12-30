@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="?attr/colorPrimary"
+        android:background="@android:color/transparent"
         app:layout_constraintVertical_bias="0.45">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -61,7 +61,6 @@
             android:layout_height="wrap_content"
             android:ems="16"
             android:textColorHighlight="?attr/colorSecondary"
-            android:background="@android:color/transparent"
             android:textColorLink="?attr/colorSecondary"
             android:hint="@string/your_name"
             android:inputType="textPersonName"
@@ -75,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="?attr/colorPrimary"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="@+id/tilName"
         app:layout_constraintStart_toStartOf="@+id/tilName"
         app:layout_constraintTop_toBottomOf="@+id/tilName">
@@ -84,7 +83,6 @@
             android:id="@+id/etWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:ems="16"
             android:textColorHighlight="?attr/colorSecondary"
             android:textColorLink="?attr/colorSecondary"

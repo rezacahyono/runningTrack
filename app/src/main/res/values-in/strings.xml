@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RunningTrack</string>
+    <string name="home">Beranda</string>
+    <string name="statistic">Statistik</string>
+    <string name="setting">Pengaturan</string>
+    <string name="darkMode">Mode Gelap aktif</string>
+    <string name="darkModeNon">Mode Gelap tidak aktif</string>
+    <string name="change_language">Ganti Bahasa</string>
+    <string name="please_enter_your_name_and_weght">Harap masukkan nama dan berat Anda</string>
+    <string name="your_name">namamu</string>
+    <string name="your_weight">berat badanmu</string>
+    <string name="apply_change">Terapkan perubahan</string>
+    <string name="total_time">Durasi</string>
+    <string name="total_distance">Jarak</string>
+    <string name="_0km">0km</string>
+    <string name="_00_00_00">00:00:00</string>
+    <string name="total_calories_burned">Kalori</string>
+    <string name="_0kcal">0kcal</string>
+    <string name="avarage_speed">Kecepatan</string>
+    <string name="_0km_h">0km/h</string>
+    <string name="finish">Selesai</string>
+    <string name="_00_00_00_00">00:00:00:00</string>
+    <string name="start">Mulai</string>
+    <string name="image">imageRun</string>
+    <string name="stop">Berhenti</string>
+    <string name="btnclose">btnTutup</string>
+    <string name="cancelRun">Batalkan lari?</string>
+    <string name="messageCancel">Anda yakin ingin membatalkan proses saat ini dan menghapus datanya?</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="saveRun">
+Lari berhasil disimpan.</string>
+
+    <string-array name="filter_options">
+        <item>Tanggal</item>
+        <item>Durasi</item>
+        <item>Jarak</item>
+        <item>kecepatan rata-rata</item>
+        <item>kalori terbakar</item>
+    </string-array>
+    <string name="skuy">Skuy!</string>
+    <string name="sort_by">Sortir:</string>
+    <string name="lastActivity">Aktivitas Terakhir :</string>
+
+    <string name="deleteRun">Runnig berhasil dihapus</string>
+    <string name="undo">Batal</string>
+
+    <string name="permissionText">Anda perlu menerima izin lokasi untuk menggunakan aplikasi ini</string>
+    <string name="saveChange">Perubahan disimpan</string>
+    <string name="pleaseFill">Harap isi semua bidang</string>
+
+</resources>

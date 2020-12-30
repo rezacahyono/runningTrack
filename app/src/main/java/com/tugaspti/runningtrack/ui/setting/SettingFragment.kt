@@ -1,7 +1,9 @@
 package com.tugaspti.runningtrack.ui.setting
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,9 +40,9 @@ class SettingFragment : Fragment() {
             btnApplyChange.setOnClickListener {
                 val success = applyChangesToSharedPref()
                 if(success) {
-                    Snackbar.make(requireView(), "Saved changes", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(requireView(), resources.getString(R.string.saveChange), Snackbar.LENGTH_SHORT).show()
                 } else {
-                    Snackbar.make(requireView(), "Please fill out all the fields", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(requireView(), resources.getString(R.string.pleaseFill), Snackbar.LENGTH_SHORT).show()
                 }
             }
 
@@ -48,13 +50,17 @@ class SettingFragment : Fragment() {
             swdarkMode.setOnCheckedChangeListener{ _, isChecked ->
                 if (isChecked){
                     setStateMode(isChecked)
-                    Snackbar.make(requireView(), "Dark Mode Active", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(requireView(), resources.getString(R.string.darkMode), Snackbar.LENGTH_SHORT).show()
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 }else{
                     setStateMode(isChecked)
-                    Snackbar.make(requireView(), "Dark Mode NonActive", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(requireView(), resources.getString(R.string.darkModeNon), Snackbar.LENGTH_SHORT).show()
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 }
+            }
+            btnChangeLang.setOnClickListener {
+                val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(intent)
             }
 
 

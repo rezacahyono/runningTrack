@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Settings"
+            android:text="@string/setting"
             android:textColor="?attr/colorSecondary"
             android:textSize="16sp"
             android:textAlignment="center"/>
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:contentDescription="@string/dark_mode"
+                android:contentDescription="@string/darkMode"
                 android:src="@drawable/ic_baseline_dark_mode_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -51,7 +51,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="8dp"
-                android:text="@string/dark_mode"
+                android:text="@string/darkMode"
                 android:textColor="?attr/colorSecondary"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:contentDescription="@string/dark_mode"
+                android:contentDescription="@string/darkMode"
                 android:src="@drawable/ic_globe_2_outline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2"
@@ -110,6 +110,7 @@
                 tools:ignore="RelativeOverlap" />
 
             <ImageButton
+                android:id="@+id/btnChangeLang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -126,6 +127,7 @@
                 android:layout_height="16dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/please_enter_your_name_and_weght"
                 android:textColor="?attr/colorSecondaryVariant"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -139,7 +141,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:background="?attr/colorPrimary"
+                style="@style/TextInputLayoutStyle"
+                android:hint="@string/your_name"
+                app:hintTextColor="@color/grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5">
@@ -148,13 +152,8 @@
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:ems="16"
-                    android:hint="@string/your_name"
-                    android:inputType="textPersonName"
-                    android:textColorHighlight="?attr/colorSecondary"
-                    android:textColorHint="?attr/colorSecondaryVariant"
-                    android:textColorLink="?attr/colorSecondary" />
+                    android:inputType="textPersonName" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -164,7 +163,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:background="?attr/colorPrimary"
+                style="@style/TextInputLayoutStyle"
+                android:hint="@string/your_weight"
+                app:hintTextColor="@color/grey"
                 app:layout_constraintEnd_toEndOf="@+id/tilName"
                 app:layout_constraintStart_toStartOf="@+id/tilName"
                 app:layout_constraintTop_toBottomOf="@+id/tilName">
@@ -173,13 +174,9 @@
                     android:id="@+id/etWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:ems="16"
                     android:hint="@string/your_weight"
-                    android:textColorHighlight="?attr/colorSecondary"
-                    android:textColorLink="?attr/colorSecondary"
-                    android:inputType="numberDecimal"
-                    android:textColorHint="?attr/colorOnSecondary" />
+                    android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -198,22 +195,5 @@
                 app:layout_constraintTop_toBottomOf="@+id/tilWeight" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-
-
-
-
-
-
-
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-
-
-
-
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-
-
-
 
 </LinearLayout>

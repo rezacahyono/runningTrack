@@ -1,13 +1,12 @@
 <resources>
     <string name="app_name">RunningTrack</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="home">home</string>
+    <string name="home">Home</string>
     <string name="statistic">Statistic</string>
     <string name="setting">Setting</string>
-    <string name="runnow">runNow</string>
-    <string name="dark_mode">Dark Mode</string>
+    <string name="darkMode">Dark Mode Active</string>
+    <string name="darkModeNon">Dark Mode is off</string>
     <string name="change_language">Change Language</string>
-    <string name="please_enter_your_name_and_weght">please enter your name and weght</string>
+    <string name="please_enter_your_name_and_weght">Please enter your name and weght</string>
     <string name="your_name">your name</string>
     <string name="your_weight">your weight</string>
     <string name="apply_change">Apply change</string>
@@ -19,12 +18,17 @@
     <string name="_0kcal">0kcal</string>
     <string name="avarage_speed">Speed</string>
     <string name="_0km_h">0km/h</string>
-    <string name="finish">finish</string>
+    <string name="finish">Finish</string>
     <string name="_00_00_00_00">00:00:00:00</string>
-    <string name="start">start</string>
+    <string name="start">Start</string>
     <string name="image">imageRun</string>
-    <string name="stop">stop</string>
+    <string name="stop">Stop</string>
     <string name="btnclose">btnClose</string>
+    <string name="cancelRun">Cancel the Run?</string>
+    <string name="messageCancel">Are you sure that you want to cancel the current run and delete its data?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="saveRun">Run saved successfully.</string>
 
     <string-array name="filter_options">
         <item>Date</item>
@@ -37,5 +41,11 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBLrx_6DeTKJ2PwpEbOtR3o8RpavHABrBU</string>
     <string name="skuy">Skuy!</string>
     <string name="sort_by">Sort by:</string>
-    <string name="aktivitas_terakhir">Aktivitas Terakhir :</string>
+    <string name="lastActivity">Last Activity :</string>
+
+    <string name="deleteRun">Successfully deleted run</string>
+    <string name="undo">Undo</string>
+    <string name="permissionText">You need to accept location permission to use this app</string>
+    <string name="saveChange">Saved changes</string>
+    <string name="pleaseFill">Please fill out all the fields</string>
 </resources>

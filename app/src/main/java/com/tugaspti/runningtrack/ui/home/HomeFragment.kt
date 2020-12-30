@@ -129,8 +129,8 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             val position = viewHolder.layoutPosition
             val run = runAdapter.differ.currentList[position]
             viewModel.deleteRun(run)
-            Snackbar.make(requireView(), "Successfully deleted run", Snackbar.LENGTH_LONG).apply {
-                setAction("Undo") {
+            Snackbar.make(requireView(), resources.getString(R.string.deleteRun), Snackbar.LENGTH_LONG).apply {
+                setAction(resources.getString(R.string.undo)) {
                     viewModel.insertRun(run)
                 }
                 show()
@@ -161,7 +161,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             EasyPermissions.requestPermissions(
                 this,
-                "You need to accept location permission to use this app",
+                resources.getString(R.string.permissionText),
                 REQUEST_CODE_LOCATION_PERMISSION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION
@@ -169,7 +169,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         } else {
             EasyPermissions.requestPermissions(
                 this,
-                "You need to accept location permissions to use this app",
+                resources.getString(R.string.permissionText),
                 REQUEST_CODE_LOCATION_PERMISSION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,

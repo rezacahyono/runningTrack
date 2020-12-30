@@ -30,8 +30,8 @@
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.37" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView5"
@@ -48,11 +48,13 @@
         android:id="@+id/tilName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/TextInputLayoutStyle"
+        android:hint="@string/your_name"
+        app:hintTextColor="@color/grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@android:color/transparent"
         app:layout_constraintVertical_bias="0.45">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -60,11 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="16"
-            android:textColorHighlight="?attr/colorSecondary"
-            android:textColorLink="?attr/colorSecondary"
-            android:hint="@string/your_name"
-            android:inputType="textPersonName"
-            android:textColorHint="?attr/colorSecondaryVariant" />
+            android:inputType="textPersonName" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,7 +72,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
+        style="@style/TextInputLayoutStyle"
+        android:hint="@string/your_weight"
+        app:hintTextColor="@color/grey"
         app:layout_constraintEnd_toEndOf="@+id/tilName"
         app:layout_constraintStart_toStartOf="@+id/tilName"
         app:layout_constraintTop_toBottomOf="@+id/tilName">
@@ -84,11 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="16"
-            android:textColorHighlight="?attr/colorSecondary"
-            android:textColorLink="?attr/colorSecondary"
-            android:hint="@string/your_weight"
-            android:inputType="numberDecimal"
-            android:textColorHint="?attr/colorOnSecondary" />
+            android:inputType="numberDecimal"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

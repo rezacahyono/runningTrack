@@ -280,7 +280,7 @@ class TrackingFragment : Fragment(){
             viewModel.insertRun(run)
             Snackbar.make(
                 requireActivity().findViewById(R.id.mainActtivity),
-                "Run saved successfully.",
+                resources.getString(R.string.saveRun),
                 Snackbar.LENGTH_LONG
             ).show()
             stopRun()

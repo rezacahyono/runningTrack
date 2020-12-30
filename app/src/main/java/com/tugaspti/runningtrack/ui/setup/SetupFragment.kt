@@ -66,7 +66,7 @@ class SetupFragment : Fragment() {
                 if (success) {
                     findNavController().navigate(R.id.action_setupFragment_to_homeFragment)
                 } else {
-                    Snackbar.make(requireView(), "Please enter all the fields.", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(requireView(), resources.getString(R.string.pleaseFill), Snackbar.LENGTH_SHORT)
                             .show()
                 }
             }
